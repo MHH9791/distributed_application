@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+<h:body>
+    <div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.userID}"/>
+        </div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.classroomID}"/>
+        </div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.location}"/>
+        </div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.openHour}"/>
+        </div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.closeHour}"/>
+        </div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.withTV}"/>
+        </div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.withPC}"/>
+        </div>
+        <div>
+            <h:outputLabel value="#{ClassroomManagedBean.withProjector}"/>
+        </div>
+    </div>
+
+    <div>
+        <h:panelGroup id="save">
+            <h:panelGroup rendered="#{ClassroomManagedBean.notSaved}">
+                <h:form>
+                    <h:commandButton value="Save">
+                        <f:ajax execute="@form"  listener="#{ClassroomManagedBean.saveClassroom}" render="save"/>
+                    </h:commandButton>
+                </h:form>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{not ClassroomManagedBean.notSaved}">
+                <h:commandButton value="Saved"></h:commandButton>
+            </h:panelGroup>
+        </h:panelGroup>
+
+        <h:form>
+            <div>
+                <div>
+                    <div>
+                        <h:panelGroup rendered="#{not empty ClassroomManagedBean.today_available_hours}">
+                            <b> Today: </b>
+                            <h:selectManyCheckbox name="today" value="#{ClassroomManagedBean.selected_today}">
+                                <f:selectItems value = "#{ClassroomManagedBean.today_available_hours}"/>
+                            </h:selectManyCheckbox>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{empty ClassroomManagedBean.today_available_hours}">
+                            <b> No time slot is available Today</b>
+                        </h:panelGroup>
+                    </div>
+
+                    <div>
+                        <h:panelGroup rendered="#{not empty ClassroomManagedBean.tomorrow_available_hours}">
+                            <b> Tomorrow: </b>
+                            <h:selectManyCheckbox name="today" value="#{ClassroomManagedBean.selected_tomorrow}">
+                                <f:selectItems value = "#{ClassroomManagedBean.tomorrow_available_hours}"/>
+                            </h:selectManyCheckbox>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{empty ClassroomManagedBean.tomorrow_available_hours}">
+                            <b> No time slot is available Tomorrow</b>
+                        </h:panelGroup>
+                    </div>
+
+                    <div>
+                        <h:panelGroup rendered="#{not empty ClassroomManagedBean.the_day_after_tomorrow_available_hours}">
+                            <b> The day after tomorrow: </b>
+                            <h:selectManyCheckbox name="today" value="#{ClassroomManagedBean.selected_day_after_tomorrow}">
+                                <f:selectItems value = "#{ClassroomManagedBean.the_day_after_tomorrow_available_hours}"/>
+                            </h:selectManyCheckbox>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{empty ClassroomManagedBean.the_day_after_tomorrow_available_hours}">
+                            <b> No time slot is available the day after tomorrow</b>
+                        </h:panelGroup>
+                    </div>
+
+                    <h:commandButton id="submitButton" action="#{ClassroomManagedBean.reserve}" value="Reserve"
+                                     rendered="#{not empty ClassroomManagedBean.today_available_hours or
+                                     not empty ClassroomManagedBean.tomorrow_available_hours
+                                     or not empty ClassroomManagedBean.the_day_after_tomorrow_available_hours}"></h:commandButton>
+
+                    <h:commandButton id="returnToHome" action="#{ClassroomManagedBean.returnToHome}" value="Go Home"
+                                     rendered="#{empty ClassroomManagedBean.today_available_hours and
+                                     empty ClassroomManagedBean.tomorrow_available_hours and
+                                     empty ClassroomManagedBean.the_day_after_tomorrow_available_hours}"></h:commandButton>
+
+                </div>
+
+            </div>
+        </h:form>
+
+<!--        <h:panelGroup id="selectedToday">-->
+<!--        <h:selectManyCheckbox name="filter">-->
+<!--            <f:selectItems value = "#{ClassroomManagedBean.selected_today}"/>-->
+<!--        </h:selectManyCheckbox>-->
+<!--        </h:panelGroup>-->
+    </div>
+</h:body>
+
+</html>
+
+

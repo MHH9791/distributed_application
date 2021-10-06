@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+</h:head>
+<h:body>
+    <h:form>
+        <div>
+            <b> Room type: </b>
+            <h:selectOneRadio name="filter" value="#{CreateClassroomBean.roomType}">
+                <f:selectItem itemValue="Lab Room" itemLabel="Lab Room"/>
+                <f:selectItem itemValue="Lecture Room" itemLabel="Lecture Room"/>
+                <f:selectItem itemValue="Group Room" itemLabel="Group Room"/>
+            </h:selectOneRadio>
+        </div>
+
+        <div>
+            <h:inputText id="location" value="#{CreateClassroomBean.location}" a:placeholder="location" required="true"/>
+        </div>
+        <div>
+            <h:inputText id="seats" value="#{CreateClassroomBean.seats}" a:placeholder="seats" required="true"/>
+        </div>
+        <div>
+            <h:inputText id="openBegin" value="#{CreateClassroomBean.openBegin}" a:placeholder="openBegin" required="true"/>
+        </div>
+        <div>
+            <h:inputText id="openEnd" value="#{CreateClassroomBean.openEnd}" a:placeholder="openEnd" required="true"/>
+        </div>
+        <div>
+            <h:inputText id="withPC_withTV_withProjector" value="#{CreateClassroomBean.withPC_withTV_withProjector}" a:placeholder="Password" required="true"/>
+        </div>
+
+        <h:commandButton id="addRoom" action="#{CreateClassroomBean.addRoom}" value="Create"></h:commandButton>
+    </h:form>
+
+    <h:form>
+        <h:commandButton value="test" action="#{MessageProducerBean.sendMessage}"></h:commandButton>
+
+    </h:form>
+
+</h:body>
+
+</html>
+
+

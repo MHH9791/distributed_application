@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+</h:head>
+<h:body>
+    <ul>
+        <li><a>Home</a></li>
+        <li><a href="./profile.xhtml">Profile</a></li>
+        <li><a href="./search.xhtml">Search</a></li>
+        <li><a href="./myMessages.xhtml">My Message</a></li>
+    </ul>
+    <h:form>
+        <h:commandButton id="logout" value="Logout" action="#{HomePageManagedBean.logout}"></h:commandButton>
+    </h:form>
+    <h:form>
+        <div>
+            <b> filter by: </b>
+            <h:selectOneRadio name="filter" value="#{HomePageManagedBean.selected}">
+                <f:selectItem itemValue="All" itemLabel="All"/>
+                <f:selectItem itemValue="Lab Room" itemLabel="Lab Room"/>
+                <f:selectItem itemValue="Lecture Room" itemLabel="Lecture Room"/>
+                <f:selectItem itemValue="Group Room" itemLabel="Group Room"/>
+            </h:selectOneRadio>
+            <h:selectOneRadio name="dateFilter" value="#{HomePageManagedBean.selectedDate}">
+                <f:selectItem itemValue="Today" itemLabel="Today"/>
+                <f:selectItem itemValue="Tomorrow" itemLabel="Tomorrow"/>
+                <f:selectItem itemValue="The day after Tomorrow" itemLabel="The day after tomorrow"/>
+            </h:selectOneRadio>
+            <h:commandButton value="Filter">
+                <f:ajax execute="@form" listener="#{HomePageManagedBean.filterClassrooms}" render="roomlist"/>
+            </h:commandButton>
+        </div>
+    </h:form>
+
+    <h:panelGroup id="roomlist">
+        <b> total: </b>
+        <h:outputLabel value="#{HomePageManagedBean.total}"/>
+        <b> lab: </b>
+        <h:outputLabel value="#{HomePageManagedBean.lab_count}"/>
+        <b> lecture: </b>
+        <h:outputLabel value="#{HomePageManagedBean.lecture_count}"/>
+        <b> group: </b>
+        <h:outputLabel value="#{HomePageManagedBean.group_count}"/>
+
+        <h:panelGroup rendered="#{not empty HomePageManagedBean.roomList}">
+            <c:forEach items="#{HomePageManagedBean.roomList}" var="classroom">
+                <h:link outcome="classroom">
+                    <f:param name="classroomID" value="#{classroom.roomId} ">
+                        <div>
+                            <h4><b>#{classroom.location}</b></h4>
+                        </div>
+                    </f:param>
+                </h:link>
+                <div>
+                    <p>#{classroom.disc}</p>
+                    <p>Seats number:#{classroom.seats}</p>
+                    <p>Open at:#{classroom.openStart} </p>
+                    <p>Close at: #{classroom.openEnd}</p>
+                </div>
+            </c:forEach>
+        </h:panelGroup >
+
+        <h:panelGroup rendered="#{empty HomePageManagedBean.roomList}">
+            <p>No available room</p>
+        </h:panelGroup >
+
+    </h:panelGroup>
+</h:body>
+
+</html>
+
+

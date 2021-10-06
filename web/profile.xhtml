@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+</h:head>
+<h:body>
+    <ul>
+        <li><a>Profile</a></li>
+        <li><a>Hello, #{ProfileManagedBean.user.firstname}</a></li>
+    </ul>
+
+    <h:panelGroup id="reservationList">
+        <c:forEach items="#{ProfileManagedBean.reservationList}" var="reservation">
+            <h:link outcome="reservation">
+                <f:param name="reservationID" value="#{reservation.id} ">
+                    <div>
+                        <h4><b>Room Id: #{reservation.roomId}</b></h4>
+                        <h:form>
+                            <h:commandButton id="deleteButton" action="#{ProfileManagedBean.deleteReservation(reservation)}" value="delete this appointment"></h:commandButton>
+                        </h:form>
+                    </div>
+                </f:param>
+            </h:link>
+            <div>
+                <p>Reservation Id: #{reservation.id}</p>
+                <p>Classroom Location: #{ProfileManagedBean.searchClassroom(reservation.roomId).getLocation()}</p>
+                <p>Classroom Disc: #{ProfileManagedBean.searchClassroom(reservation.roomId).getDisc()}</p>
+                <p>Reserve Date: #{reservation.reserveDate}</p>
+                <p>Reserve Hour: #{reservation.reserveHour}</p>
+            </div>
+        </c:forEach>
+    </h:panelGroup>
+</h:body>
+
+</html>
+
+<!--<script>-->
+<!--$(document).ready(function(){-->
+<!--    $(".delete_button").click(function(){-->
+<!--        $.ajax({-->
+<!--            url: "http://localhost:8080/DAdemo/profile.xhtml",-->
+<!--            method: "POST|GET|PUT|DELETE",-->
+
+<!--        });-->
+<!--    });-->
+<!--});-->
+<!--</script>-->
+
+

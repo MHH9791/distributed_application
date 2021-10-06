@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+</h:head>
+<h:body>
+    <h:form>
+        <div>
+            <div>
+                <h:inputText id="email" value="#{RestClient.email}" a:placeholder="Email" required="true"/>
+            </div>
+            <h:commandButton value="Search User">
+                <f:ajax execute="@form" listener="#{RestClient.searchClient}" render="showSearchedUser"/>
+            </h:commandButton>
+        </div>
+    </h:form>
+
+    <h:panelGroup id="showSearchedUser">
+        <h:outputText value="#{RestClient.searchedUserInfo}"/>
+    </h:panelGroup>
+
+    <h:form>
+        <div>
+            <div>
+                <h:inputText id="location" value="#{RestClient.location}" a:placeholder="Location" required="true"/>
+                <h:inputText id="day" value="#{RestClient.day}" a:placeholder="Day" required="true"/>
+                <h:inputText id="start" value="#{RestClient.start}" a:placeholder="Start Hour" required="true"/>
+                <h:inputText id="end" value="#{RestClient.end}" a:placeholder="End Hour" required="true"/>
+            </div>
+            <h:commandButton value="Check Availability">
+                <f:ajax execute="@form" listener="#{RestClient.searchClassroomAvailability}" render="availability"/>
+            </h:commandButton>
+        </div>
+    </h:form>
+
+    <h:panelGroup id="availability">
+        <h:outputText value="#{RestClient.classroomAvailability}"/>
+    </h:panelGroup>
+</h:body>
+
+</html>
+
+
